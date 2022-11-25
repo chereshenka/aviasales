@@ -1,0 +1,29 @@
+ul{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.list{
+  width: 500px;
+  &__more{
+    background: #2196F3;
+    border-radius: 5px;
+    height: 50px;
+    width: 500px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color:#fff;
+    outline: none;
+    margin-bottom: 50px;
+    @media (max-width:320px) {
+      width: 300px;
+    }
+    &:hover{
+      outline: none;
+      border: none;
+    }
+  }
+  @media (max-width:320px) {
+    width: 300px;
+  }
+}
