@@ -21,8 +21,7 @@ export const fetchTickets = (key, serverLink) => {
             dispatch(setSpinnerState(false));
             res = true;
           }
-        })
-        .catch(dispatch(setAlertState(true)));
+        });
     }
   };
 };
