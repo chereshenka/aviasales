@@ -2,12 +2,17 @@ const ADD_TICKETS = "ADD_TICKETS";
 const SORT_PRICE = "SORT_PRICE";
 const SORT_TIME = "SORT_TIME";
 
-const initialState = [];
+const initialState = {
+  tickets: [],
+};
 
 export const ticketState = (state = initialState, action) => {
   switch (action.type) {
     case ADD_TICKETS:
-      return { ...state, tickets: action.payload };
+      return {
+        ...state,
+        tickets: [...state.tickets, ...action.payload],
+      };
     case SORT_PRICE:
       return {
         ...state,

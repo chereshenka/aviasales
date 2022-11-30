@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { Spin } from "antd";
 
 import logo from "../../img/logo.png";
 import FilterList from "../filter-list";
@@ -7,10 +8,14 @@ import Tab from "../tabs";
 import ListItems from "../list-items";
 import { fetchTickets } from "../../async/aviasales-data";
 import Authorization from "../../service/authorization";
+import { useSelector } from "react-redux";
 
 const auth = new Authorization();
 
 export default function App() {
+  const spinner = useSelector((state) => {
+    return state.spinner.spinner;
+  });
   const dispatch = useDispatch();
   useEffect(() => {
     getKeyFromServer();
@@ -30,6 +35,19 @@ export default function App() {
         <FilterList />
         <div className="content">
           <Tab />
+          {spinner ? (
+            <div
+              style={{
+                height: 30,
+                display: "flex",
+                justifyContent: "center",
+                marginTop: 10,
+                marginBottom: 10,
+              }}
+            >
+              <Spin size="large" />
+            </div>
+          ) : null}
           <ListItems />
         </div>
       </div>

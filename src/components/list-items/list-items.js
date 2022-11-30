@@ -2,7 +2,7 @@ import uniqid from "uniqid";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { format, parseISO } from "date-fns";
-import { Space, Spin } from "antd";
+import { Alert } from "antd";
 
 import styles from "./list-items.module.scss";
 import itemStyle from "./item.module.scss";
@@ -13,6 +13,8 @@ export default function ListItems() {
   });
 
   const filterArray = useSelector((state) => state.filter.filter);
+  const alert = useSelector((state) => state.alert.alert);
+  const spinner = useSelector((state) => state.spinner.spinner);
 
   const [ticketsCount, setTicketsCount] = useState(5);
 
@@ -31,9 +33,8 @@ export default function ListItems() {
     }
     return arr;
   };
-
   const items =
-    list.length > 0
+    list.length > 0 || list !== 0
       ? filtered()
           .slice(0, ticketsCount)
           .map((el) => {
@@ -91,18 +92,25 @@ export default function ListItems() {
           })
       : null;
 
-  const data = items ? (
-    items
-  ) : (
-    <Space size="large">
-      <Spin size="large" />
-    </Space>
-  );
+  const message =
+    alert && !spinner ? (
+      <div>
+        <Alert
+          message="Ошибка!"
+          description="Рейсов, подходящих под заданные фильтры, не найдено"
+          type="info"
+          style={{ marginBottom: 20 }}
+        />
+      </div>
+    ) : null;
 
   return (
     <>
       <div className={styles.list}>
-        <ul>{data}</ul>
+        <ul>
+          {items}
+          {message}
+        </ul>
       </div>
       <button
         className={styles.list__more}
