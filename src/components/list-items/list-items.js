@@ -7,7 +7,7 @@ import { Space, Spin } from "antd";
 import styles from "./list-items.module.scss";
 import itemStyle from "./item.module.scss";
 
-function ListItems() {
+export default function ListItems() {
   const ticketData = useSelector((state) => {
     return state.tickets;
   });
@@ -113,5 +113,3 @@ function ListItems() {
     </>
   );
 }
-
-export default ListItems;

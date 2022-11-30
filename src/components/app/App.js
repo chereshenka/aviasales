@@ -10,7 +10,7 @@ import Authorization from "../../service/authorization";
 
 const auth = new Authorization();
 
-function App() {
+export default function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     getKeyFromServer();
@@ -37,5 +37,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
