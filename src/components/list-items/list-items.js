@@ -93,7 +93,7 @@ export default function ListItems() {
       : null;
 
   const message =
-    alert && !spinner ? (
+    alert && !spinner && items === null ? (
       <div>
         <Alert
           message="Ошибка!"
