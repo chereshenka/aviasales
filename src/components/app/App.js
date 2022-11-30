@@ -21,7 +21,6 @@ export default function App() {
     const serverLink = auth._serverLink;
     dispatch(fetchTickets(key, serverLink));
   }
-
   return (
     <div className="site">
       <div>
