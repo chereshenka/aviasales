@@ -1,7 +1,9 @@
+import { SET_SPINNER } from "./types";
+
 const initialState = {
   spinner: true,
 };
-const SET_SPINNER = "SET_SPINNER";
+
 export const spinnerState = (state = initialState, action) => {
   switch (action.type) {
     case SET_SPINNER:
@@ -13,5 +15,3 @@ export const spinnerState = (state = initialState, action) => {
       return state;
   }
 };
-
-export const setSpinnerState = (payload) => ({ type: SET_SPINNER, payload });

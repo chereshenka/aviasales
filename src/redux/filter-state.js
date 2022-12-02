@@ -1,7 +1,9 @@
+import { ADD_FILTER } from "./types";
+
 const initialState = {
   filter: [],
 };
-const ADD_FILTER = "ADD_FILTER";
+
 export const filterState = (state = initialState, action) => {
   switch (action.type) {
     case ADD_FILTER:
@@ -15,5 +17,3 @@ export const filterState = (state = initialState, action) => {
       return state;
   }
 };
-
-export const addFilterInArray = (payload) => ({ type: ADD_FILTER, payload });

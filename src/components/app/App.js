@@ -22,7 +22,7 @@ export default function App() {
   }, []);
 
   async function getKeyFromServer() {
-    const key = await auth._userId;
+    const key = await auth.getKey();
     const serverLink = auth._serverLink;
     dispatch(fetchTickets(key, serverLink));
   }
@@ -36,15 +36,7 @@ export default function App() {
         <div className="content">
           <Tab />
           {spinner ? (
-            <div
-              style={{
-                height: 30,
-                display: "flex",
-                justifyContent: "center",
-                marginTop: 10,
-                marginBottom: 10,
-              }}
-            >
+            <div className="spinner-box">
               <Spin size="large" />
             </div>
           ) : null}

@@ -1,6 +1,4 @@
-const ADD_TICKETS = "ADD_TICKETS";
-const SORT_PRICE = "SORT_PRICE";
-const SORT_TIME = "SORT_TIME";
+import { ADD_TICKETS, SORT_PRICE, SORT_TIME } from "./types";
 
 const initialState = {
   tickets: [],
@@ -29,7 +27,3 @@ export const ticketState = (state = initialState, action) => {
       return state;
   }
 };
-
-export const addServerTickets = (payload) => ({ type: ADD_TICKETS, payload });
-export const sortTicketsByPrice = (payload) => ({ type: SORT_PRICE, payload });
-export const sortTicketsByTime = (payload) => ({ type: SORT_TIME, payload });

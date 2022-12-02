@@ -1,15 +1,13 @@
-import uniqid from "uniqid";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { format, parseISO } from "date-fns";
 import { Alert } from "antd";
 
 import styles from "./list-items.module.scss";
-import itemStyle from "./item.module.scss";
+import Item from "../item";
 
 export default function ListItems() {
-  const ticketData = useSelector((state) => {
-    return state.tickets;
+  const list = useSelector((state) => {
+    return state.tickets.tickets;
   });
 
   const filterArray = useSelector((state) => state.filter.filter);
@@ -17,8 +15,6 @@ export default function ListItems() {
   const spinner = useSelector((state) => state.spinner.spinner);
 
   const [ticketsCount, setTicketsCount] = useState(5);
-
-  const list = ticketData.tickets || 0;
   const filtered = () => {
     const arr = [];
     if (filterArray.length === 0 || list === 0 || filterArray.includes("all")) {
@@ -37,69 +33,16 @@ export default function ListItems() {
     list.length > 0 || list !== 0
       ? filtered()
           .slice(0, ticketsCount)
-          .map((el) => {
-            return (
-              <li key={uniqid()} className={itemStyle.card}>
-                <ul>
-                  <li className={itemStyle.card__header}>
-                    <p className={itemStyle.card__price}>{el.price} Р</p>
-                    <img
-                      className={itemStyle.card__logo}
-                      alt="logo"
-                      src={`https://pics.avs.io/99/36/${el.carrier}.png`}
-                    />
-                  </li>
-                  <li className={itemStyle.card__tickets}>
-                    {el.segments.map((elem) => {
-                      const { stops, date, duration } = elem;
-                      const datesec = Date.parse(date);
-                      const flyEndTime = format(
-                        datesec + duration * 60000,
-                        "HH':'mm",
-                      );
-                      return (
-                        <div key={uniqid()} className={itemStyle.card__variant}>
-                          <div className={itemStyle.variant__divsize}>
-                            <p className={itemStyle.variant__title}>
-                              {elem.origin} - {elem.destination}
-                            </p>
-                            <p className={itemStyle.variant__info}>
-                              {format(parseISO(date), "HH':'mm")} - {flyEndTime}
-                            </p>
-                          </div>
-                          <div className={itemStyle.variant__divsize}>
-                            <p className={itemStyle.variant__title}>В пути</p>
-                            <p className={itemStyle.variant__info}>
-                              {Math.floor((duration / 60) % 60)}ч{" "}
-                              {Math.floor(duration % 60)}м
-                            </p>
-                          </div>
-                          <div className={itemStyle.variant__divsize}>
-                            <p className={itemStyle.variant__title}>
-                              {stops.length ? stops.length : "нет"} пересадки
-                            </p>
-                            <p className={itemStyle.variant__info}>
-                              {stops.join(", ")}
-                            </p>
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </li>
-                </ul>
-              </li>
-            );
-          })
+          .map((el, index) => <Item key={index} {...el} />)
       : null;
 
   const message =
     alert && !spinner && items === null ? (
-      <div>
+      <div className={styles.alertBox}>
         <Alert
           message="Ошибка!"
           description="Рейсов, подходящих под заданные фильтры, не найдено"
           type="info"
-          style={{ marginBottom: 20 }}
         />
       </div>
     ) : null;

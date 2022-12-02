@@ -1,9 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import React from "react";
-import {
-  sortTicketsByPrice,
-  sortTicketsByTime,
-} from "../../redux/ticket-state";
+import { sortTicketsByPrice, sortTicketsByTime } from "../../redux/actions";
 
 import styles from "./tabs.module.scss";
 

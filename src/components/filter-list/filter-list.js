@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import uniqid from "uniqid";
 
-import { addFilterInArray } from "../../redux/filter-state";
+import { addFilterInArray } from "../../redux/actions";
 
 import styles from "./filter-list.module.scss";
 
@@ -86,18 +85,17 @@ const FilterList = () => {
     } else {
       const id = filterArray.findIndex((el) => el.id === item);
       const oldItem = filterArray[id];
-      const newItem = { ...oldItem, checked: !oldItem.checked };
       setFilterArray((arr) => [
         ...arr.slice(0, id),
-        newItem,
+        { ...oldItem, checked: !oldItem.checked },
         ...arr.slice(id + 1),
       ]);
     }
     dispatch(addFilterInArray(item));
   };
 
-  const items = filterArray.map((element) => (
-    <label key={uniqid()}>
+  const items = filterArray.map((element, index) => (
+    <label key={index}>
       <input
         id={element.id}
         type="checkbox"

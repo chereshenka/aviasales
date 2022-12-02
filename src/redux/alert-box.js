@@ -1,8 +1,8 @@
+import { SET_ALERT } from "./types";
+
 const initialState = {
   alert: false,
 };
-
-const SET_ALERT = "SET_ALERT";
 
 export const alertState = (state = initialState, action) => {
   switch (action.type) {
@@ -15,5 +15,3 @@ export const alertState = (state = initialState, action) => {
       return state;
   }
 };
-
-export const setAlertState = (payload) => ({ type: SET_ALERT, payload });

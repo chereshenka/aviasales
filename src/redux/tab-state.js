@@ -1,10 +1,8 @@
+import { CHEAP, FAST, OPTIMAL } from "./types";
+
 const initialState = {
   tab: "",
 };
-
-const CHEAP = "CHEAP";
-const FAST = "FAST";
-const OPTIMAL = "OPTIMAL";
 
 export const tabState = (state = initialState, action) => {
   switch (action.type) {
