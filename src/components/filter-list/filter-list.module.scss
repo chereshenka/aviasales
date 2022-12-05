@@ -13,8 +13,8 @@
   box-sizing: border-box;
   color: #4A4A4A;
   background-color: #fff;
-  @media (max-width:320px) {
-    width: 300px;
+  @media (max-width:766px) {
+    width: 100%;
     margin-bottom: 20px;
     
   }
@@ -35,13 +35,13 @@ label{
   height: 20px;
   display: flex;
   align-items: center;
+  font-size: 13px;
   &:hover{
     background-color:#F1FCFF;
     cursor:pointer;
   }
-}
-label p{
-  margin-left: 10px;
-  font-size: 13px;
+  &>input{
+  margin-right: 10px;
+  }
 }
 

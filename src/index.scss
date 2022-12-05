@@ -19,7 +19,8 @@ body {
 
 .main{
   display: flex;
-  @media(max-width:320px){
+  @media(max-width:766px){
+    width: 90%;
     flex-direction:column;
     align-items: center;
   }
@@ -27,7 +28,8 @@ body {
 
 .content{
   margin-left: 20px;
-  @media (max-width:320px) {
+  @media (max-width:766px) {
+    width: 100%;
     margin-left: 0;
   }
 }
@@ -45,12 +47,9 @@ body {
   width: 900px;
   flex-direction: column;
   align-items: center;
-  @media(max-width:320px){
-    width: 320px;
-  }
 }
 
-@media screen and (max-width:320px) {
+@media screen and (max-width:766px) {
   .logo{
     margin-top: 10px;
     margin-bottom: 10px;

@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 
-import { addFilterInArray } from "../../redux/actions";
+import { addFilterInArray, filterTicketsByCategory } from "../../redux/actions";
+import uniqid from "uniqid";
 
 import styles from "./filter-list.module.scss";
 
@@ -35,7 +37,9 @@ const FilterList = () => {
   ];
 
   const [filterArray, setFilterArray] = useState(filterList);
-
+  const filterArrayState = useSelector((state) => {
+    return state.filter.filter;
+  });
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -68,45 +72,73 @@ const FilterList = () => {
   }, [filterArray]);
 
   const check = (e) => {
-    const item = e.target.id;
-
-    if (item === "all") {
-      e.target.checked
-        ? setFilterArray((data) => {
-            return data.map((el) =>
-              el.checked ? el : { ...el, checked: true },
-            );
-          })
-        : setFilterArray((data) => {
-            return data.map((el) =>
-              el.checked ? { ...el, checked: false } : el,
-            );
-          });
+    const target = e.target;
+    let input;
+    let arr = [];
+    //checking where make click
+    if (target.localName === "label") {
+      input = target.firstElementChild;
     } else {
-      const id = filterArray.findIndex((el) => el.id === item);
+      input = target;
+    }
+
+    if (input.id === "all") {
+      if (input.checked) {
+        setFilterArray((data) => {
+          return data.map((el) => {
+            filterArrayState.includes(el.id) ? false : arr.push(el.id);
+            return el.checked ? el : { ...el, checked: true };
+          });
+        });
+        dispatch(addFilterInArray(arr));
+      } else {
+        setFilterArray((data) => {
+          return data.map((el) => {
+            return el.checked ? { ...el, checked: false } : el;
+          });
+        });
+        dispatch(addFilterInArray(arr));
+      }
+    } else {
+      //change obj element state
+      const id = filterArray.findIndex((el) => el.id === input.id);
       const oldItem = filterArray[id];
       setFilterArray((arr) => [
         ...arr.slice(0, id),
         { ...oldItem, checked: !oldItem.checked },
         ...arr.slice(id + 1),
       ]);
+      //redux state
+      if (filterArrayState.includes(input.id)) {
+        arr = filterArrayState.filter(
+          (filter) => filter !== input.id && filter !== "all",
+        );
+        dispatch(addFilterInArray(arr));
+      } else {
+        arr = filterArrayState;
+        arr.push(input.id);
+        dispatch(addFilterInArray(arr));
+      }
     }
-    dispatch(addFilterInArray(item));
+    dispatch(filterTicketsByCategory(filterArrayState));
   };
 
   const items = filterArray.map((element, index) => (
-    <label key={index}>
-      <input
-        id={element.id}
-        type="checkbox"
-        className={styles.filter__checkbox}
-        defaultChecked={element.checked}
-      />
-      <p>{element.name}</p>
-    </label>
+    <div key={index + element.id}>
+      <label htmlFor={element.id}>
+        <input
+          id={element.id}
+          type="checkbox"
+          className={styles.filter__checkbox}
+          checked={element.checked}
+          onChange={(e) => check(e)}
+        />
+        {element.name}
+      </label>
+    </div>
   ));
   return (
-    <div className={styles.filter} onClick={check}>
+    <div key={uniqid()} className={styles.filter}>
       <p className={styles.filter__title}>Количество пересадок</p>
       {items}
     </div>

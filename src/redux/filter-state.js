@@ -9,9 +9,7 @@ export const filterState = (state = initialState, action) => {
     case ADD_FILTER:
       return {
         ...state,
-        filter: state.filter.includes(action.payload)
-          ? state.filter.filter((el) => el !== action.payload)
-          : [...state.filter, action.payload],
+        filter: action.payload,
       };
     default:
       return state;

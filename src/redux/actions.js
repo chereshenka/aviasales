@@ -4,7 +4,8 @@ import {
   SORT_TIME,
   SET_ALERT,
   ADD_FILTER,
-  SET_SPINNER
+  SET_SPINNER,
+  FILTER_CATEGORY,
 } from "./types";
 
 //ticket-station actions
@@ -18,6 +19,10 @@ export const sortTicketsByPrice = (payload) => ({
 });
 export const sortTicketsByTime = (payload) => ({
   type: SORT_TIME,
+  payload,
+});
+export const filterTicketsByCategory = (payload) => ({
+  type: FILTER_CATEGORY,
   payload,
 });
 

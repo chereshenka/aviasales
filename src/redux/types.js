@@ -3,6 +3,7 @@
 export const ADD_TICKETS = "ADD_TICKETS";
 export const SORT_PRICE = "SORT_PRICE";
 export const SORT_TIME = "SORT_TIME";
+export const FILTER_CATEGORY = "FILTER_CATEGORY";
 
 //alert-box
 

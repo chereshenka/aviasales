@@ -39,7 +39,7 @@ ul{
   &__divsize{
     width: 140px;
     height: 40px;
-    @media (max-width:320px) {
+    @media (max-width:766px) {
       width: 90px;
     }
   }
@@ -51,7 +51,7 @@ ul{
   &__info{
     font-weight: 600;
     font-size: 14px;
-    @media (max-width:320px) {
+    @media (max-width:766px) {
       font-size: 12px;
     }
   }

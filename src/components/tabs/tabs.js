@@ -10,9 +10,12 @@ const Tab = () => {
   const tab = useSelector((state) => state.tab.tab);
 
   const onChangeTab = (e) => {
-    const item = e.target;
-    const id = item.id;
-    dispatch({ type: id.toUpperCase() });
+    console.log("click");
+    const item = e.target.id;
+    dispatch({ type: item.toUpperCase() });
+    item === "cheap"
+      ? dispatch(sortTicketsByPrice(state))
+      : dispatch(sortTicketsByTime(state));
   };
 
   return (
@@ -20,7 +23,6 @@ const Tab = () => {
       <div className={styles.tab__list} onClick={onChangeTab}>
         <button
           id="cheap"
-          onClick={() => dispatch(sortTicketsByPrice(state))}
           className={
             styles.tab__cheap + " " + (tab === "cheap" ? styles.active : null)
           }
@@ -29,7 +31,6 @@ const Tab = () => {
         </button>
         <button
           id="fast"
-          onClick={() => dispatch(sortTicketsByTime(state))}
           className={
             styles.tab__fast + " " + (tab === "fast" ? styles.active : null)
           }
