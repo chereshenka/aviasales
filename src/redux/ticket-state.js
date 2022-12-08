@@ -25,10 +25,9 @@ export const ticketState = (state = initialState, action) => {
         ),
       };
     case FILTER_CATEGORY:
-      console.log("filter categoty", state);
       return {
         ...state,
-        tickets: [...filtered(state.tickets, action.payload)],
+        tickets: filtered(state.tickets, action.payload),
       };
     default:
       return state;

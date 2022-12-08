@@ -10,7 +10,7 @@ const Tab = () => {
   const tab = useSelector((state) => state.tab.tab);
 
   const onChangeTab = (e) => {
-    console.log("click");
+    ("click");
     const item = e.target.id;
     dispatch({ type: item.toUpperCase() });
     item === "cheap"

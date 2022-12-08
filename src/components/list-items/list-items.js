@@ -18,9 +18,13 @@ export default function ListItems() {
   const [ticketsCount, setTicketsCount] = useState(5);
   const items =
     list.length > 0 || list !== 0
-      ? filtered(list, filterArray)
-          .slice(0, ticketsCount)
-          .map((el, index) => <Item key={index} {...el} />)
+      ? filterArray.length > 0
+        ? filtered(list, filterArray)
+            .slice(0, ticketsCount)
+            .map((el, index) => <Item key={index} {...el} />)
+        : list
+            .slice(0, ticketsCount)
+            .map((el, index) => <Item key={index} {...el} />)
       : null;
 
   const message =

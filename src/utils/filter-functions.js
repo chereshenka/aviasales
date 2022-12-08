@@ -1,5 +1,4 @@
 export const filtered = (items, filters) => {
-  console.log("filtered in>>>", filters);
   const arr = [];
   if (filters.length === 0 || items === 0 || filters.includes("all")) {
     return items;

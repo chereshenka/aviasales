@@ -11,32 +11,36 @@ export function fetchTickets(key, link) {
     const serverUrl = link;
     const searchKey = key;
     const url = new URL("tickets?", serverUrl);
-    const params = new URLSearchParams({
-      searchId: searchKey,
-    });
+    url.searchParams.set("searchId", searchKey);
+    // const params = new URLSearchParams({
+    //   searchId: searchKey,
+    // });
     let spinnerStatus = true;
-    while (spinnerStatus) {
-      const requestServer = await fetch(url + params.toString());
+    try {
+      while (spinnerStatus) {
+        const requestServer = await fetch(url);
 
-      if (requestServer.status === 500) {
-        requestServer;
-      } else if (requestServer.status !== 200) {
-        dispatch(setAlertState(true));
-        dispatch(setSpinnerState(false));
-        throw new Error(requestServer.statusText);
-      } else {
-        const res = requestServer.json();
-        res.then((json) => {
-          if (json.tickets.length === 0) {
-            dispatch(setAlertState(true));
-          }
-          dispatch(addServerTickets(json.tickets));
-          if (json.stop) {
-            dispatch(setSpinnerState(false));
-            spinnerStatus = false;
-          }
-        });
+        if (requestServer.status === 500) {
+          requestServer;
+        } else if (requestServer.status !== 200) {
+          throw new Error(requestServer.statusText);
+        } else {
+          const res = requestServer.json();
+          res.then((json) => {
+            if (json.tickets.length === 0) {
+              dispatch(setAlertState(true));
+            }
+            dispatch(addServerTickets(json.tickets));
+            if (json.stop) {
+              dispatch(setSpinnerState(false));
+              spinnerStatus = false;
+            }
+          });
+        }
       }
+    } catch (e) {
+      dispatch(setAlertState(true));
+      dispatch(setSpinnerState(false));
     }
   };
 }

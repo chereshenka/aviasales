@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 
-import { addFilterInArray, filterTicketsByCategory } from "../../redux/actions";
-import uniqid from "uniqid";
+import { addFilterInArray } from "../../redux/actions";
 
 import styles from "./filter-list.module.scss";
 
@@ -120,7 +119,7 @@ const FilterList = () => {
         dispatch(addFilterInArray(arr));
       }
     }
-    dispatch(filterTicketsByCategory(filterArrayState));
+    // dispatch(filterTicketsByCategory(filterArrayState));
   };
 
   const items = filterArray.map((element, index) => (
@@ -138,7 +137,7 @@ const FilterList = () => {
     </div>
   ));
   return (
-    <div key={uniqid()} className={styles.filter}>
+    <div className={styles.filter}>
       <p className={styles.filter__title}>Количество пересадок</p>
       {items}
     </div>
