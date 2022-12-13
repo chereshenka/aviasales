@@ -1,4 +1,5 @@
 export const filtered = (items, filters) => {
+  console.log("filter in");
   const arr = [];
   if (filters.length === 0 || items === 0 || filters.includes("all")) {
     return items;
@@ -6,7 +7,10 @@ export const filtered = (items, filters) => {
   for (const element of items) {
     for (const key of element.segments) {
       for (const digit of filters) {
-        key["stops"].length === Number(digit) ? arr.push(element) : false;
+
+        key["stops"].length === Number(digit) && !arr.includes(element)
+          ? arr.push(element)
+          : false;
       }
     }
   }
